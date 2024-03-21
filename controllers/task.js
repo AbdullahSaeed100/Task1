@@ -9,9 +9,10 @@ const getAll =async (req,res)=>{
 const getById=async (req,res)=>{
     try{
     const oneTask=await task_model.findOne({'_id':req.params.id});
+    if(oneTask===null) return res.status(404).json(`the id ${req.params.id} is not found`);
     res.status(200).json(oneTask);
     }catch(err){
-        res.status(404).json(`the id ${req.params.id} is not found`);
+        res.status(500).json('id with wrong format');
     }
     
     
